@@ -1,0 +1,93 @@
+<!-- expense_list.html -->
+{% extends "base.html" %}
+{% load rows_tags %}
+{% load url_replace %}
+
+{% block content %}
+
+  <div id="example">
+    <div class="dt-panel">
+      <div class="dt-left-panel">
+        <select
+          id="id_rows_per_page"
+          name="rows_per_page"
+          class="form-control"
+          data-row="{{ rows_per_page }}"
+          hx-get="{% url 'expense:expense_list' %}?{% url_replace rows_per_page=request.GET.rows_per_page search=request.GET.search %}"
+          hx-target="#example"
+        >
+          {% for row in rows_per_pages %}
+
+            {% if row == rows_per_page %}
+              <!-- Seleciona o item conforme a quantidade de linhas na página. -->
+              <option value="{{ row }}" selected>{{ row }}</option>
+            {% else %}
+              <option value="{{ row }}">{{ row }}</option>
+            {% endif %}
+
+          {% endfor %}
+        </select>
+        <span class="text-muted"><small>Linhas por página</small></span>
+      </div>
+
+      <div class="dt-right-panel">
+        <div class="form-inline justify-content-end">
+          <input
+            name="search"
+            class="form-control"
+            type="text"
+            placeholder="Busca..."
+            hx-get="{% url 'expense:expense_list' %}?{% url_replace rows_per_page=request.GET.rows_per_page search=request.GET.search %}"
+            hx-target="#example"
+            value="{{ request.GET.search }}"
+          >
+          <a
+            class="btn btn-link"
+            href="."
+          >Limpar</a>
+        </div>
+      </div>
+    </div>
+
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>Valor</th>
+          <th>Data de pagamento</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% include "./expense_table.html" %}
+      </tbody>
+    </table>
+
+    <div class="dt-panel">
+      <div class="dt-left-panel dt-total-panel">
+        <!-- Linhas 1 a 10 de 100 -->
+        <!-- Linhas 11 a 20 de 100 -->
+        Linhas {% first_line_count obj_count=object_list.count pg_number=page_obj.number %}
+        a {% last_line_count obj_count=object_list.count pg_number=page_obj.number %}
+        de {{ page_obj.paginator.count }}
+      </div>
+
+      <div class="dt-right-panel">
+        <div class="dt-pagination">
+          {% include "includes/pagination.html" %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+{% block js %}
+
+  <script>
+    htmx.on("htmx:afterSwap", function(evt) {
+      const item = document.querySelector('#id_rows_per_page')
+      item.value = item.dataset.row
+    })
+  </script>
+
+{% endblock js %}

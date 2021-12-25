@@ -1,0 +1,27 @@
+.dt-panel {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.dt-left-panel {
+  width: 10%;
+  flex-direction: row;
+  align-items: center;
+}
+
+.dt-right-panel {
+  width: 50%;
+  margin-left: auto;
+  align-items: flex-end;
+}
+
+.dt-total-panel {
+  width: 20%;
+}
+
+.dt-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
