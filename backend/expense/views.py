@@ -4,9 +4,7 @@ from django.views.generic import ListView
 from .models import Expense
 
 
-class ExpenseListView(ListView):
-    model = Expense
-    template_name = 'expense/expense_list.html'
+class DatatablesMixin:
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -30,6 +28,9 @@ class ExpenseListView(ListView):
             return rows_per_page
         return 10
 
+
+class ExpenseSearchMixin:
+
     def get_queryset(self):
         queryset = super().get_queryset()
         search = self.request.GET.get('search')
@@ -38,3 +39,8 @@ class ExpenseListView(ListView):
                 Q(description__icontains=search)
             )
         return queryset
+
+
+class ExpenseListView(DatatablesMixin, ExpenseSearchMixin, ListView):
+    model = Expense
+    template_name = 'expense/expense_list.html'
