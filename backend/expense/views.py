@@ -78,24 +78,26 @@ class ExpenseSortMixin:
     '''
     Ordenação
     '''
-    sort_by = {
-        'pk': {
-            'label': 'Descrição',
-            'ordering': 'pk',
-        },
-        'description': {
-            'label': 'Descrição',
-            'ordering': 'description',
-        },
-        'payment_date': {
-            'label': 'Data de pagamento',
-            'ordering': 'payment_date',
-        },
-        'value': {
-            'label': 'Valor',
-            'ordering': 'value',
-        },
-    }
+
+    def __init__(self):
+        self.sort_by = {
+            'id': {
+                'label': self.model.id.field.verbose_name.capitalize(),
+                'ordering': self.model.id.field.name,
+            },
+            'description': {
+                'label': self.model.description.field.verbose_name.capitalize(),
+                'ordering': self.model.description.field.name,
+            },
+            'payment_date': {
+                'label': self.model.payment_date.field.verbose_name.capitalize(),
+                'ordering': self.model.payment_date.field.name,
+            },
+            'value': {
+                'label': self.model.value.field.verbose_name.capitalize(),
+                'ordering': self.model.value.field.name,
+            },
+        }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
