@@ -53,38 +53,20 @@
       <thead>
         <tr>
           <th>
-            <span
-              class="span-is-link link"
-              hx-get="{% url 'expense:expense_list' %}?{% url_replace rows_per_page=request.GET.rows_per_page search=request.GET.search sort_by=sort_by.description.ordering %}"
-              hx-target="#example"
-            >
-              {{ sort_by.description.label }}
-            </span>
+            {% include "../includes/ordering_field.html" with url='/expense/' field=sort_by.description target='#example' %}
             {% include "../includes/ordering_icon.html" with order=sort_by.description.ordering %}
           </th>
           <th>
-            <span
-              class="span-is-link link"
-              hx-get="{% url 'expense:expense_list' %}?{% url_replace rows_per_page=request.GET.rows_per_page search=request.GET.search sort_by=sort_by.value.ordering %}"
-              hx-target="#example"
-            >
-              {{ sort_by.value.label }}
-            </span>
+            {% include "../includes/ordering_field.html" with url='/expense/' field=sort_by.value target='#example' %}
             {% include "../includes/ordering_icon.html" with order=sort_by.value.ordering %}
           </th>
           <th>
-            <span
-              class="span-is-link link"
-              hx-get="{% url 'expense:expense_list' %}?{% url_replace rows_per_page=request.GET.rows_per_page search=request.GET.search sort_by=sort_by.payment_date.ordering %}"
-              hx-target="#example"
-            >
-              {{ sort_by.payment_date.label }}
-            </span>
+            {% include "../includes/ordering_field.html" with url='/expense/' field=sort_by.payment_date target='#example' %}
             {% include "../includes/ordering_icon.html" with order=sort_by.payment_date.ordering %}
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tBody">
         {% include "./expense_table.html" %}
       </tbody>
     </table>

@@ -1,0 +1,9 @@
+{% load url_replace %}
+
+<span
+  class="span-is-link link"
+  hx-get="{{url}}?{% url_replace rows_per_page=request.GET.rows_per_page search=request.GET.search sort_by=field.ordering %}"
+  hx-target="{{target}}"
+>
+  {{ field.label }}
+</span>
