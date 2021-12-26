@@ -1,0 +1,11 @@
+<span class="float-right">
+  {% if order == ordering %}
+    {% if '-' in order %}
+      <i class="fa fa-sort-up"></i>
+    {% else %}
+      <i class="fa fa-sort-down"></i>
+    {% endif %}
+  {% else %}
+    <i class="fa fa-sort"></i>
+  {% endif %}
+</span>
