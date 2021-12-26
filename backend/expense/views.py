@@ -5,10 +5,12 @@ from .models import Expense
 
 
 class DatatablesMixin:
+    paginate = 10
+    rows_per_pages = (5, 10, 20, 50, 100)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['rows_per_pages'] = (5, 10, 20, 50, 100)
+        context['rows_per_pages'] = self.rows_per_pages
 
         # Busca
         search = self.request.GET.get('search')
@@ -41,7 +43,11 @@ class DatatablesMixin:
         if rows_per_page:
             context['rows_per_page'] = rows_per_page
         else:
-            context['rows_per_page'] = 10
+            context['rows_per_page'] = self.paginate
+
+        # Total de itens
+        total_items = self.model.objects.values_list('id', flat=True).count()
+        context['total_items'] = total_items
 
         return context
 
@@ -49,7 +55,7 @@ class DatatablesMixin:
         rows_per_page = self.request.GET.get('rows_per_page')
         if rows_per_page:
             return rows_per_page
-        return 10
+        return self.paginate
 
 
 class ExpenseSearchMixin:
@@ -73,6 +79,10 @@ class ExpenseSortMixin:
     Ordenação
     '''
     sort_by = {
+        'pk': {
+            'label': 'Descrição',
+            'ordering': 'pk',
+        },
         'description': {
             'label': 'Descrição',
             'ordering': 'description',

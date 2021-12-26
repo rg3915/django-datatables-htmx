@@ -52,6 +52,7 @@
     <table class="table table-hover table-bordered">
       <thead>
         <tr>
+          <th></th>
           <th>
             {% include "../includes/ordering_field.html" with url='/expense/' field=sort_by.description target='#example' %}
             {% include "../includes/ordering_icon.html" with order=sort_by.description.ordering %}
@@ -75,8 +76,8 @@
       <div class="dt-left-panel dt-total-panel">
         <!-- Linhas 1 a 10 de 100 -->
         <!-- Linhas 11 a 20 de 100 -->
-        Linhas {% first_line_count obj_count=object_list.count pg_number=page_obj.number %}
-        a {% last_line_count obj_count=object_list.count pg_number=page_obj.number %}
+        Linhas {% first_line_count rows_per_page=rows_per_page pg_number=page_obj.number %}
+        a {% last_line_count rows_per_page=rows_per_page pg_number=page_obj.number total_items=total_items %}
         de {{ page_obj.paginator.count }}
       </div>
 
