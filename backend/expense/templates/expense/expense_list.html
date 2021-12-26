@@ -17,14 +17,15 @@
           hx-target="#example"
         >
           {% for row in rows_per_pages %}
-
-            {% if row == rows_per_page %}
-              <!-- Seleciona o item conforme a quantidade de linhas na página. -->
-              <option value="{{ row }}" selected>{{ row }}</option>
-            {% else %}
-              <option value="{{ row }}">{{ row }}</option>
-            {% endif %}
-
+            <!-- Seleciona o item conforme a quantidade de linhas na página. -->
+            <option
+              value="{{ row }}"
+              {% if row == rows_per_page %}
+              selected
+              {% endif %}
+            >
+              {{ row }}
+            </option>
           {% endfor %}
         </select>
         <span class="text-muted"><small>Linhas por página</small></span>
