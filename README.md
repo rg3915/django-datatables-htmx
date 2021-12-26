@@ -30,7 +30,7 @@ python manage.py migrate
 if running [django-seed](https://github.com/Brobin/django-seed) type:
 
 ```
-python manage.py seed expense --number=210
+python manage.py seed expense --number=145
 ```
 
 
@@ -67,6 +67,6 @@ python manage.py migrate
 Se quiser rodar o [django-seed](https://github.com/Brobin/django-seed) digite:
 
 ```
-python manage.py seed expense --number=210
+python manage.py seed expense --number=145
 ```
 

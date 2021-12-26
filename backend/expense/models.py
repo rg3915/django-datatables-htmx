@@ -11,7 +11,7 @@ class Expense(TimeStampedModel):
     paid = models.BooleanField('pago', default=False)
 
     class Meta:
-        ordering = ('-payment_date',)
+        ordering = ('pk',)
         verbose_name = 'despesa'
         verbose_name_plural = 'despesas'
 
